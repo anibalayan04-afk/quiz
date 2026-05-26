@@ -205,8 +205,9 @@
             <div class="subtitle" id="step-subtitle">Ընտրիր քեզ հոգեհարազատ տարբերակները</div>
         </div>
         <div class="timeline-container"><div class="timeline-progress" id="timeline-indicator"></div></div>
-        <div class="question-box" id="question-render">Բեռնվում է...</div>
-        <div class="options-list" id="options-render"></div>
+        <div class="question-box" id="question-render">Ինչպե՞ս կուզես անցկացնել այսօրվա երեկոն.</div>
+        <div class="options-list" id="options-render">
+            </div>
     </div>
 
     <div id="result-flow" class="result-screen">
@@ -222,4 +223,115 @@
     const dataset = [
         { q: "Ինչպե՞ս կուզես անցկացնել այսօրվա երեկոն.", keys: ["Ա", "Բ", "Գ", "Դ"], options: ["Լեցուն ժպիտներով, վառ գույներով և դրական էներգիայով։", "Լռության մեջ, տաք թեյով և լիակատար հանդարտությամբ։", "Մաքուր օդին երկար զբոսնելով՝ առանց որևէ շտապողականության։", "Հարմարավետ մի անկյունում՝ սիրելի գրքի հետ առանձնացած։"] },
         { q: "Եթե հիմա ընտրեիր քեզ համար ամենահաճելի հյուսվածքը, ո՞րը կլիներ դա.", keys: ["Ա", "Բ", "Գ", "Դ"], options: ["Մետաքսե թեթև և օդային շարֆ։", "Փափուկ և տաք բրդյա ծածկոց։", "Զով, թարմացնող ջրի կաթիլներ։", "Հին, ամուր գրքի թավշյա կազմ։"] },
-        { q: "Ո՞ր մեղեդին է հիմա ամենամոտ քո ներաշխարհին.", keys: ["Ա", "Բ", "Գ", "Դ"], options:
+        { q: "Ո՞ր մեղեդին է հիմա ամենամոտ քո ներաշխարհին.", keys: ["Ա", "Բ", "Գ", "Դ"], options: ["Աշխույժ, ռիթմիկ և ոգեշնչող երաժշտություն։", "Դաշնամուրի դանդաղ և հանգստացնող նոտաներ։", "Բնության ձայները՝ քամու շրշյուն կամ անձրևի կաթիլներ։", "Խորը, դասական կամ ջազային գործիքային կատարում։"] },
+        { q: "Ի՞նչը քեզ ամենից արագ կպարգևի թեթևության զգացում.", keys: ["Ա", "Բ", "Գ", "Դ"], options: ["Ընկերների հետ անկեղծ զրույցն ու ծիծաղը։", "Արտաքին աշխարհից մեկ ժամով ամբողջությամբ անջատվելը։", "Բարձունքի վրա լիաթոք ու խորը շունչ քաշելը։", "Մտքերը հստակեցնելն ու ներքին հավասարակշռություն գտնելը։"] },
+        { q: "Ի՞նչ կուզես, որ քո օծանելիքը պատմի քո մասին այսօր.", keys: ["Ա", "Բ", "Գ", "Դ"], options: ["«Ես պատրաստ եմ նոր բացահայտումների և վառ պահերի»։", "«Ես խաղաղության և ներդաշնակության մեջ եմ ինքս ինձ հետ»։", "«Ես սիրում եմ ազատություն, տարածություն և բնականություն»։", "«Ես ունեմ ներքին ուժ, հաստատակամություն և խորություն»։"] }
+    ];
+
+    const tieResolvers = {
+        "ԱԲ": { q: "Ի՞նչն է քեզ հենց այս պահին ավելի հոգեհարազատ.", keys: ["Ա", "Բ"], options: ["Զգացմունքների վառ զարթոնքն ու թարմությունը", "Մեղմ անդորրն ու մտքի խաղաղությունը"] },
+        "ԳԴ": { q: "Ի՞նչն է քեզ հենց այս պահին ավելի հոգեհարազատ.", keys: ["Գ", "Դ"], options: ["Թեթևությունը, թռիչքի զգացումն ու բաց տարածությունը", "Ներքին կայունությունը, հանգստությունն ու հաստատուն հիմքը"] },
+        "ԱԳ": { q: "Ի՞նչն է քեզ հենց այս պահին ավելի հոգեհարազատ.", keys: ["Ա", "Գ"], options: ["Արևոտ ծաղիկների կենսախնդիր էներգիան", "Բնության մաքուր, զով և ազատ շունչը"] },
+        "ԲԴ": { q: "Ի՞նչն է քեզ հենց այս պահին ավելի հոգեհարազատ.", keys: ["Բ", "Դ"], options: ["Նուրբ, հարմարավետ ու հանգիստ միջավայրը", "Իմաստուն, մտածկոտ և ինքնավստահ ներաշխարհը"] }
+    };
+
+    const library = {
+        "Ա": { name: "Lumina Bloom 🌸", desc: "Ծաղկային զարթոնք: Այս նրբագեղ բույրը բարձրացնում է տրամադրությունը, արթնացնում կենսախնդրությունն ու պարգևում վառ, դրական էներգիա: Այն կատարյալ է նրանց համար, ովքեր պատրաստ են նոր ու լուսավոր սկիզբներին:" },
+        "Բ": { name: "Serene Glow 🌙", desc: "Մեղմ անդորր: Նուրբ ու հանգստացնող նոտաներ, որոնք օգնում են թուլանալ, հանդարտեցնում են հոգին և պարգևում ներքին ներդաշնակություն ու բացարձակ խաղաղություն:" },
+        "Գ": { name: "Other Breathe 🌬️", desc: "Ազատ շունչ: Թեթևության և թռիչքի զգացում: Օգնում է ազատվել օրվա մտավոր ծանրությունից, զգալ բնության զովությունն ու լիաթոք շնչել ազատ տարածության մեջ:" },
+        "Դ": { name: "Novel Cedar 🌲", desc: "Ազնվական կայունություն: Փայտային խորը և հարուստ նոտաներ, որոնք օգնում են հստակեցնել մտքերը, կենտրոնանալ և հաղորդում են ներքին անդրդվելի ուժ ու վստահություն:" }
+    };
+
+    let pointer = 0;
+    let tally = { "Ա": 0, "Բ": 0, "Գ": 0, "Դ": 0 };
+    let activeTiebreaker = null;
+
+    function startQuiz() {
+        pointer = 0;
+        tally = { "Ա": 0, "Բ": 0, "Գ": 0, "Դ": 0 };
+        activeTiebreaker = null;
+        document.getElementById("quiz-flow").style.display = "block";
+        document.getElementById("result-flow").style.display = "none";
+        renderStep();
+    }
+
+    function renderStep() {
+        let current;
+        if (!activeTiebreaker) {
+            current = dataset[pointer];
+            document.getElementById("timeline-indicator").style.width = ((pointer / dataset.length) * 100) + "%";
+        } else {
+            current = activeTiebreaker;
+            document.getElementById("timeline-indicator").style.width = "100%";
+        }
+
+        document.getElementById("question-render").innerText = current.q;
+        const list = document.getElementById("options-render");
+        list.innerHTML = "";
+
+        current.options.forEach((opt, idx) => {
+            const btn = document.createElement("button");
+            btn.className = "option-item";
+            btn.innerText = opt;
+            btn.onclick = () => selectOpt(current.keys[idx]);
+            list.appendChild(btn);
+        });
+    }
+
+    function selectOpt(key) {
+        tally[key]++;
+        if (!activeTiebreaker) {
+            pointer++;
+            if (pointer < dataset.length) {
+                renderStep();
+            } else {
+                evaluateTally();
+            }
+        } else {
+            renderFinal(key);
+        }
+    }
+
+    function evaluateTally() {
+        let high = 0;
+        let leaders = [];
+        for (let k in tally) {
+            if (tally[k] > high) {
+                high = tally[k];
+                leaders = [k];
+            } else if (tally[k] === high) {
+                leaders.push(k);
+            }
+        }
+
+        if (leaders.length === 1) {
+            renderFinal(leaders[0]);
+        } else {
+            let combo = leaders.join("");
+            if (tieResolvers[combo]) {
+                activeTiebreaker = tieResolvers[combo];
+            } else if (tieResolvers[combo.split("").reverse().join("")]) {
+                activeTiebreaker = tieResolvers[combo.split("").reverse().join("")];
+            } else {
+                activeTiebreaker = tieResolvers["ԱԲ"];
+            }
+            renderStep();
+        }
+    }
+
+    function renderFinal(key) {
+        document.getElementById("quiz-flow").style.display = "none";
+        document.getElementById("result-flow").style.display = "block";
+        const finalObj = library[key];
+        document.getElementById("final-perfume-name").innerText = finalObj.name;
+        document.getElementById("final-perfume-desc").innerText = finalObj.desc;
+    }
+
+    function resetQuiz() {
+        startQuiz();
+    }
+
+    window.onload = startQuiz;
+</script>
+</body>
+</html>
