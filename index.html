@@ -3,291 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Գտիր քո բույրը</title>
-    <link href="https://fonts.googleapis.com/css2?family=Mardoto:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Aura & Essence — Գտիր քո բույրը</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fcfbfa;
-            --text-color: #3a3530;
-            --accent-color: #c4b29d;
-            --card-bg: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #f5f0ea 0%, #e9e0d5 100%);
+            --text-main: #2c2621;
+            --text-muted: #7a6f64;
+            --accent: #b39b82;
+            --accent-light: #fbf9f6;
+            --card-shadow: 0 20px 50px rgba(44, 38, 33, 0.05);
+            --border-color: rgba(179, 155, 130, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Mardoto', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            padding: 24px;
+            overflow-x: hidden;
         }
 
-        .quiz-container {
-            max-width: 500px;
+        .quiz-wrapper {
+            max-width: 520px;
             width: 100%;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 50px 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .brand-header {
             text-align: center;
-            transition: all 0.4s ease;
+            margin-bottom: 40px;
+        }
+
+        .brand-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 500;
         }
 
         h1 {
-            font-size: 24px;
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
             font-weight: 400;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
+            color: var(--text-main);
+            line-height: 1.3;
+            font-style: italic;
         }
 
         .subtitle {
-            font-size: 14px;
-            color: #8c8275;
-            margin-bottom: 30px;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 10px;
+            letter-spacing: 0.5px;
         }
 
-        .progress-bar {
-            height: 2px;
+        .timeline-container {
             width: 100%;
-            background-color: #eee;
-            margin-bottom: 30px;
-            border-radius: 2px;
+            height: 3px;
+            background: rgba(44, 38, 33, 0.05);
+            margin-bottom: 40px;
+            border-radius: 10px;
             overflow: hidden;
         }
 
-        .progress {
+        .timeline-progress {
             height: 100%;
             width: 0%;
-            background-color: var(--accent-color);
-            transition: width 0.3s ease;
+            background: var(--accent);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .question {
+        .question-box {
             font-size: 18px;
-            margin-bottom: 25px;
+            line-height: 1.6;
+            margin-bottom: 35px;
             font-weight: 400;
-            line-height: 1.5;
+            color: var(--text-main);
+            text-align: center;
+            min-height: 60px;
         }
 
-        .options {
+        .options-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
-        .option-btn {
-            background-color: transparent;
-            border: 1px solid #e6e1da;
-            padding: 16px 20px;
-            border-radius: 8px;
+        .option-item {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 18px 24px;
+            border-radius: 14px;
             cursor: pointer;
-            font-family: inherit;
-            font-size: 15px;
-            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-main);
             text-align: left;
-            transition: all 0.25s ease;
+            line-height: 1.5;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 4px 10px rgba(44, 38, 33, 0.01);
         }
 
-        .option-btn:hover {
-            border-color: var(--accent-color);
-            background-color: #faf8f5;
-            transform: translateY(-1px);
+        .option-item:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(179, 155, 130, 0.12);
         }
 
-        .result {
+        .result-screen {
             display: none;
-            animation: fadeIn 0.6s ease forwards;
+            text-align: center;
+            animation: eleganceFade 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
-        .result h2 {
-            font-size: 28px;
-            color: var(--text-color);
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .result-type {
-            font-size: 14px;
+        .result-badge {
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent-color);
-            margin-bottom: 20px;
-            font-weight: 500;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 600;
         }
 
-        .result-desc {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #5c554e;
-            margin-bottom: 30px;
-        }
-
-        .restart-btn {
-            background-color: var(--text-color);
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 14px;
+        .perfume-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--text-main);
+            margin-bottom: 24px;
+            font-weight: 400;
             letter-spacing: 1px;
-            transition: opacity 0.2s;
         }
 
-        .restart-btn:hover {
-            opacity: 0.9;
+        .perfume-description {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #4a423a;
+            margin-bottom: 40px;
+            padding: 0 10px;
+            font-weight: 300;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        .action-button {
+            background: var(--text-main);
+            color: #ffffff;
+            border: none;
+            padding: 16px 36px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(44, 38, 33, 0.15);
+        }
+
+        .action-button:hover {
+            background: #423a32;
+            transform: translateY(-1px);
+            box-shadow: 0 12px 24px rgba(44, 38, 33, 0.2);
+        }
+
+        @keyframes eleganceFade {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <div id="quiz-section">
-        <h1 id="title">Բացահայտիր քո բույրը</h1>
-        <div class="subtitle" id="subtitle">Ընտրիր քեզ հոգեհարազատ տարբերակները</div>
-        <div class="progress-bar"><div class="progress" id="progress"></div></div>
-        <div class="question" id="question-text">Բեռնվում է...</div>
-        <div class="options" id="options-container"></div>
+<div class="quiz-wrapper">
+    <div id="quiz-flow">
+        <div class="brand-header">
+            <div class="brand-logo">Aura & Essence</div>
+            <h1 id="header-title">Բացահայտիր քո բույրը</h1>
+            <div class="subtitle" id="step-subtitle">Ընտրիր քեզ հոգեհարազատ տարբերակները</div>
+        </div>
+        <div class="timeline-container"><div class="timeline-progress" id="timeline-indicator"></div></div>
+        <div class="question-box" id="question-render">Բեռնվում է...</div>
+        <div class="options-list" id="options-render"></div>
     </div>
 
-    <div id="result-section" class="result">
-        <div class="result-type">Քո անհատական դեղատոմսը</div>
-        <h2 id="perfume-name">Lumina Bloom</h2>
-        <div class="result-desc" id="perfume-desc">Նկարագրություն</div>
-        <button class="restart-btn" onclick="restartQuiz()">ԱՆՑՆԵԼ ՆՈՐԻՑ</button>
-    </div>
-</div>
-
-<script>
-    const questions = [
-        { q: "Ինչպե՞ս կուզես անցկացնել այսօրվա երեկոն.", id: 1, type: "normal", keys: ["Ա", "Բ", "Գ", "Դ"], options: ["Լեցուն ժպիտներով, վառ գույներով և դրական էներգիայով։", "Լռության մեջ, տաք թեյով և լիակատար հանդարտությամբ։", "Մաքուր օդին երկար զբոսնելով՝ առանց որևէ շտապողականության։", "Հարմարավետ մի անկյունում՝ սիրելի գրքի հետ առանձնացած։"] },
-        { q: "Եթե հիմա ընտրեիր քեզ համար ամենահաճելի հյուսվածքը (տեքստուրան), ո՞րը կլիներ դա.", id: 2, type: "normal", keys: ["Ա", "Բ", "Գ", "Դ"], options: ["Մետաքսե թեթև և օդային շարֆ։", "Փափուկ և տաք բրդյա ծածկոց։", "Զով, թարմացնող ջրի կաթիլներ։", "Հին, ամուր գրքի թավշյա կազմ։"] },
-        { q: "Ո՞ր մեղեդին է հիմա ամենամոտ քո ներաշխարհին.", id: 3, type: "normal", keys: ["Ա", "Բ", "Գ", "Դ"], options: ["Աշխույժ, ռիթմիկ և ոգեշնչող երաժշտություն։", "Դաշնամուրի դանդաղ և հանգստացնող նոտաներ։", "Բնության ձայները՝ քամու շրշյուն կամ անձրևի կաթիլներ։", "Խորը, դասական կամ ջազային գործիքային կատարում։"] },
-        { q: "Ի՞նչը քեզ ամենից արագ կպարգևի թեթևության զգացում.", id: 4, type: "normal", keys: ["Ա", "Բ", "Գ", "Դ"], options: ["Ընկերների հետ անկեղծ զրույցն ու ծիծաղը։", "Արտաքին աշխարհից մեկ ժամով ամբողջությամբ անջատվելը։", "Բարձունքի վրա լիաթոք ու խորը շունչ քաշելը։", "Մտքերը հստակեցնելն ու ներքին հավասարակշռություն գտնելը։"] },
-        { q: "Ի՞նչ կուզես, որ քո օծանելիքը պատմի քո մասին այսօր.", id: 5, type: "normal", keys: ["Ա", "Բ", "Գ", "Դ"], options: ["«Ես պատրաստ եմ նոր բացահայտումների և վառ պահերի»։", "«Ես խաղաղության և ներդաշնակության մեջ եմ ինքս ինձ հետ»։", "«Ես սիրում եմ ազատություն, տարածություն և բնականություն»։", "«Ես ունեմ ներքին ուժ, հաստատակամություն և խորություն»։"] }
-    ];
-
-    const tieBreakers = {
-        "ԱԲ": { q: "Ի՞նչն է քեզ հենց այս պահին ավելի հոգեհարազատ.", keys: ["Ա", "Բ"], options: ["Զգացմունքների վառ զարթոնքն ու թարմությունը", "Մեղմ անդորրն ու մտքի խաղաղությունը"] },
-        "ԳԴ": { q: "Ի՞նչն է քեզ հենց այս պահին ավելի հոգեհարազատ.", keys: ["Գ", "Դ"], options: ["Թեթևությունը, թռիչքի զգացումն ու բաց տարածությունը", "Ներքին կայունությունը, հանգստությունն ու հաստատուն հիմքը"] },
-        "ԱԳ": { q: "Ի՞նչն է քեզ հենց այս պահին ավելի հոգեհարազատ.", keys: ["Ա", "Գ"], options: ["Արևոտ ծաղիկների կենսախնդիր էներգիան", "Բնության մաքուր, զով և ազատ շունչը"] },
-        "ԲԴ": { q: "Ի՞նչն է քեզ հենց այս պահին ավելի հոգեհարազատ.", keys: ["Բ", "Դ"], options: ["Նուրբ, ոչ ծանր, հարմարավետ միջավայրը", "Իմաստուն, մտածկոտ և ինքնավստահ ներաշխարհը"] }
-    };
-
-    const resultsData = {
-        "Ա": { name: "Lumina Bloom 🌸", desc: "Ծաղկային զարթոնք: Այս բույրը բարձրացնում է տրամադրությունը, արթնացնում կենսախնդրությունն ու պարգևում վառ, դրական էներգիա: Այն կատարյալ է նոր բացահայտումների համար:" },
-        "Բ": { name: "Serene Glow 🌙", desc: "Մեղմ անդորր: Նուրբ նոտաներ, որոնք օգնում են թուլանալ, հանգստացնում են հոգին և պարգևում ներդաշնակություն ու բացարձակ խաղաղություն:" },
-        "Գ": { name: "Other Breathe 🌬️", desc: "Ազատ շունչ: Տալիս է թեթևություն, օգնում է ազատվել ավելորդ մտավոր ծանրությունից, զգալ բնության զովությունն ու լիաթոք շնչել:" },
-        "Դ": { name: "Novel Cedar 🌲", desc: "Ազնվական կայունություն: Փայտային խորը նոտաներ, որոնք օգնում են հստակեցնել մտքերը, կենտրոնանալ և հաղորդում են ներքին ուժ ու ինքնավստահություն:" }
-    };
-
-    let currentQuestionIndex = 0;
-    let scores = { "Ա": 0, "Բ": 0, "Գ": 0, "Դ": 0 };
-    let isTieBreaker = false;
-
-    function initQuiz() {
-        currentQuestionIndex = 0;
-        scores = { "Ա": 0, "Բ": 0, "Գ": 0, "Դ": 0 };
-        isTieBreaker = false;
-        document.getElementById("quiz-section").style.display = "block";
-        document.getElementById("result-section").style.display = "none";
-        showQuestion();
-    }
-
-    function showQuestion() {
-        let currentQuestion;
-        let totalSteps = questions.length;
-        
-        if (!isTieBreaker) {
-            currentQuestion = questions[currentQuestionIndex];
-            let progressPercent = (currentQuestionIndex / totalSteps) * 100;
-            document.getElementById("progress").style.width = progressPercent + "%";
-        } else {
-            currentQuestion = isTieBreaker;
-            document.getElementById("progress").style.width = "100%";
-        }
-
-        document.getElementById("question-text").innerText = currentQuestion.q;
-        const container = document.getElementById("options-container");
-        container.innerHTML = "";
-
-        currentQuestion.options.forEach((option, index) => {
-            const btn = document.createElement("button");
-            btn.className = "option-btn";
-            btn.innerText = option;
-            btn.onclick = () => handleAnswer(currentQuestion.keys[index]);
-            container.appendChild(btn);
-        });
-    }
-
-    function handleAnswer(key) {
-        scores[key]++;
-        
-        if (!isTieBreaker) {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
-            } else {
-                checkResult();
-            }
-        } else {
-            showFinalResult(key);
-        }
-    }
-
-    function checkResult() {
-        let maxScore = 0;
-        let winners = [];
-
-        for (let key in scores) {
-            if (scores[key] > maxScore) {
-                maxScore = scores[key];
-                winners = [key];
-            } else if (scores[key] === maxScore) {
-                winners.push(key);
-            }
-        }
-
-        if (winners.length === 1) {
-            showFinalResult(winners[0]);
-        } else {
-            // Որոշիչ հարցի ընտրություն՝ ըստ հավասար տառերի զույգի
-            let pair = winners.join("");
-            if (tieBreakers[pair]) {
-                isTieBreaker = tieBreakers[pair];
-            } else if (tieBreakers[pair.split("").reverse().join("")]) {
-                isTieBreaker = tieBreakers[pair.split("").reverse().join("")];
-            } else {
-                // Եթե 3 հավասար տառ կա (հազվադեպ), ընտրում է առաջինը
-                isTieBreaker = tieBreakers["ԱԲ"]; 
-            }
-            showQuestion();
-        }
-    }
-
-    function showFinalResult(winnerKey) {
-        document.getElementById("quiz-section").style.display = "none";
-        document.getElementById("result-section").style.display = "block";
-        
-        const result = resultsData[winnerKey];
-        document.getElementById("perfume-name").innerText = result.name;
-        document.getElementById("perfume-desc").innerText = result.desc;
-    }
-
-    function restartQuiz() {
-        initQuiz();
-    }
-
-    window.onload = initQuiz;
-</script>
-</body>
-</html>
+    <div id="result-flow" class="result-screen">
+        <div class="brand-logo" style="margin-bottom: 30px;">Aura & Essence</div>
+        <div class="result-
