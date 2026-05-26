@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura & Essence — Գտիր քո բույրը</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <title>Soul STEAM Project — Գտիր քո բույրը</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght=0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #f5f0ea 0%, #e9e0d5 100%);
@@ -57,7 +57,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 14px;
             text-transform: uppercase;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             color: var(--text-muted);
             margin-bottom: 12px;
             font-weight: 500;
@@ -200,7 +200,7 @@
 <div class="quiz-wrapper">
     <div id="quiz-flow">
         <div class="brand-header">
-            <div class="brand-logo">Aura & Essence</div>
+            <div class="brand-logo">Soul STEAM Project</div>
             <h1 id="header-title">Բացահայտիր քո բույրը</h1>
             <div class="subtitle" id="step-subtitle">Ընտրիր քեզ հոգեհարազատ տարբերակները</div>
         </div>
@@ -210,5 +210,16 @@
     </div>
 
     <div id="result-flow" class="result-screen">
-        <div class="brand-logo" style="margin-bottom: 30px;">Aura & Essence</div>
-        <div class="result-
+        <div class="brand-logo" style="margin-bottom: 30px;">Soul STEAM Project</div>
+        <div class="result-badge">Ձեր անհատական ընտրությունը</div>
+        <h2 class="perfume-title" id="final-perfume-name">Lumina Bloom</h2>
+        <div class="perfume-description" id="final-perfume-desc">Նկարագրություն</div>
+        <button class="action-button" onclick="resetQuiz()">Փորձել նորից</button>
+    </div>
+</div>
+
+<script>
+    const dataset = [
+        { q: "Ինչպե՞ս կուզես անցկացնել այսօրվա երեկոն.", keys: ["Ա", "Բ", "Գ", "Դ"], options: ["Լեցուն ժպիտներով, վառ գույներով և դրական էներգիայով։", "Լռության մեջ, տաք թեյով և լիակատար հանդարտությամբ։", "Մաքուր օդին երկար զբոսնելով՝ առանց որևէ շտապողականության։", "Հարմարավետ մի անկյունում՝ սիրելի գրքի հետ առանձնացած։"] },
+        { q: "Եթե հիմա ընտրեիր քեզ համար ամենահաճելի հյուսվածքը, ո՞րը կլիներ դա.", keys: ["Ա", "Բ", "Գ", "Դ"], options: ["Մետաքսե թեթև և օդային շարֆ։", "Փափուկ և տաք բրդյա ծածկոց։", "Զով, թարմացնող ջրի կաթիլներ։", "Հին, ամուր գրքի թավշյա կազմ։"] },
+        { q: "Ո՞ր մեղեդին է հիմա ամենամոտ քո ներաշխարհին.", keys: ["Ա", "Բ", "Գ", "Դ"], options:
